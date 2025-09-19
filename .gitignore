@@ -1,0 +1,19 @@
+# Compiled executables and object files
+# This prevents committing the binary you generate from the source code.
+run_tests
+*.o
+*.d
+
+# Common build directories
+build/
+bin/
+
+# IDE-specific configuration files (e.g., for VS Code, CLion)
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS-specific temporary files (e.g., for macOS, Windows)
+.DS_Store
+Thumbs.db
