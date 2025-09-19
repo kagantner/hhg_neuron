@@ -8,6 +8,10 @@ run_tests
 build/
 bin/
 
+# Project-specific executables
+neuron_model
+test_runner
+
 # IDE-specific configuration files (e.g., for VS Code, CLion)
 .vscode/
 .idea/
