@@ -22,9 +22,6 @@ public:
     double get_V() const;
 
 private:
-    // Helper function for linear interpolation on the LUT
-    double interpolate_lut(double V, const std::vector<double>& lut) const;
-
     // State variables
     double V_m; // Membrane potential (mV)
     double m, h, n; // Gating variables
