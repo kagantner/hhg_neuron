@@ -1,14 +1,19 @@
 #include "Neuron.h"
 #include "SynapseModel.h"
+#include "HHLookupTables.h"
 #include <cmath>
 #include <stdexcept>
 #include <algorithm> // For std::fill
 
-Neuron::Neuron(int num_segments, double length, double diameter, double Ra) : time_ms(0.0) {
+Neuron::Neuron(int num_segments, double length, double diameter, double Ra, const HHLookupTables& luts) : time_ms(0.0) {
     if (num_segments <= 0) {
         throw std::invalid_argument("Number of segments must be positive.");
     }
-    segments.assign(num_segments, NeuronSegment(length, diameter));
+    // Use emplace_back since NeuronSegment no longer has a default constructor
+    segments.reserve(num_segments);
+    for (int i = 0; i < num_segments; ++i) {
+        segments.emplace_back(length, diameter, luts);
+    }
     injected_currents.resize(num_segments, 0.0);
 
     if (num_segments > 1) {

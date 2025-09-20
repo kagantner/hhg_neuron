@@ -5,8 +5,8 @@
 
 class HHLookupTables {
 public:
-    // Initializes the static lookup tables. Must be called once before simulation.
-    static void initialize();
+    // Initializes the lookup tables. Must be called once before simulation.
+    void initialize();
 
     // Lookup table parameters
     static constexpr double V_MIN = -100.0; // mV
@@ -14,13 +14,13 @@ public:
     static constexpr double V_STEP = 0.01;  // mV resolution
     static constexpr int LUT_SIZE = static_cast<int>((V_MAX - V_MIN) / V_STEP) + 1;
 
-    // Static lookup tables, accessible to NeuronSegment
-    static std::vector<double> alpha_m_lut;
-    static std::vector<double> beta_m_lut;
-    static std::vector<double> alpha_h_lut;
-    static std::vector<double> beta_h_lut;
-    static std::vector<double> alpha_n_lut;
-    static std::vector<double> beta_n_lut;
+    // Lookup tables, accessible to NeuronSegment
+    std::vector<double> alpha_m_lut;
+    std::vector<double> beta_m_lut;
+    std::vector<double> alpha_h_lut;
+    std::vector<double> beta_h_lut;
+    std::vector<double> alpha_n_lut;
+    std::vector<double> beta_n_lut;
 
 private:
     // The original kinetic functions, now private and used only for table generation.

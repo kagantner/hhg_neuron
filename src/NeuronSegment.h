@@ -1,29 +1,39 @@
 #ifndef NEURON_SEGMENT_H
 #define NEURON_SEGMENT_H
 
-#include "HHLookupTables.h"
+#include <vector>
+#include <cmath>
+
+// Forward declaration to avoid including the full header
+class HHLookupTables;
 
 class NeuronSegment {
 public:
-    // Constructor now takes segment geometry to handle total currents correctly
-    NeuronSegment(double length, double diameter);
-    NeuronSegment(); // Default constructor for vector resizing
+    // Default constructor is deleted because a LUT reference is required.
+    NeuronSegment() = delete;
+
+    // Constructor: Initialize the neuron with geometry and a reference to the LUTs
+    NeuronSegment(double length, double diameter, const HHLookupTables& luts);
 
     // Update the neuron state for a single time step
-    // I_total_inj: Total injected current in uA
-    // dt: Time step in ms
     void update(double I_total_inj, double dt);
 
     // Get the current membrane potential in mV
     double get_V() const;
 
 private:
+    // Helper function for linear interpolation on the LUT
+    double interpolate_lut(double V, const std::vector<double>& lut) const;
+
     // State variables
     double V_m; // Membrane potential (mV)
     double m, h, n; // Gating variables
 
     // Geometric properties
     double surface_area; // in cm^2
+
+    // Pointer to the shared lookup tables
+    const HHLookupTables* luts;
 
     // Biophysical constants (per unit area)
     static constexpr double C_m_density = 1.0;      // Membrane capacitance (uF/cm^2)

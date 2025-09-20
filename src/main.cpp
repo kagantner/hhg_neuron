@@ -7,7 +7,8 @@
 
 int main() {
     // --- 1. Initialize shared resources ---
-    HHLookupTables::initialize();
+    HHLookupTables hh_luts;
+    hh_luts.initialize();
     SynapseManager synapse_manager;
     synapse_manager.build_luts(); // Pre-compute all LUTs
 
@@ -23,7 +24,7 @@ int main() {
     double Ra_ohm_cm = 150.0;
 
     // --- 4. Create Neuron and Add Synapse ---
-    Neuron neuron(num_segments, length_cm, diameter_cm, Ra_ohm_cm);
+    Neuron neuron(num_segments, length_cm, diameter_cm, Ra_ohm_cm, hh_luts);
 
     SynapseInstance ampa_synapse;
     ampa_synapse.g_max = 0.5f; // Strong synapse for clear effect (uS)

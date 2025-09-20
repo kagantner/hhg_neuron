@@ -5,11 +5,12 @@
 #include "SynapseModel.h"
 #include <vector>
 
+class HHLookupTables; // Forward declaration
 class SynapseManager; // Forward declaration
 
 class Neuron {
 public:
-    Neuron(int num_segments, double length, double diameter, double Ra);
+    Neuron(int num_segments, double length, double diameter, double Ra, const HHLookupTables& luts);
 
     // Update all segments, calculating synaptic currents using the provided manager
     void update(double dt, const SynapseManager& synapse_manager);
