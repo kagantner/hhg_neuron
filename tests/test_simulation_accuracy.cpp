@@ -10,7 +10,8 @@
 void test_simulation_accuracy() {
     std::cout << "Running Full Simulation Accuracy Test..." << std::endl;
 
-    HHLookupTables::initialize();
+    HHLookupTables hh_luts;
+    hh_luts.initialize();
 
     const double T_total = 50.0;
     const double dt = 0.01;
@@ -25,7 +26,7 @@ void test_simulation_accuracy() {
 
     double max_diff = 0.0;
 
-    NeuronSegment optimized_segment(seg_length, seg_diameter);
+    NeuronSegment optimized_segment(seg_length, seg_diameter, hh_luts);
     NeuronSegment_Golden golden_segment(seg_length, seg_diameter);
 
     for (int i = 0; i < num_steps; ++i) {

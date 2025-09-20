@@ -33,41 +33,42 @@ void test_lut_accuracy() {
     std::cout << "Running LUT Accuracy Test..." << std::endl;
 
     // Ensure the tables are initialized
-    HHLookupTables::initialize();
+    HHLookupTables hh_luts;
+    hh_luts.initialize();
 
     const double tolerance = 1e-9;
 
-    for (int i = 0; i < HHLookupTables::LUT_SIZE; ++i) {
-        double v = HHLookupTables::V_MIN + i * HHLookupTables::V_STEP;
+    for (int i = 0; i < hh_luts.LUT_SIZE; ++i) {
+        double v = hh_luts.V_MIN + i * hh_luts.V_STEP;
 
         // Test alpha_m
         double golden_am = GoldenFunctions::alpha_m(v);
-        double lut_am = HHLookupTables::alpha_m_lut[i];
+        double lut_am = hh_luts.alpha_m_lut[i];
         assert(std::abs(golden_am - lut_am) < tolerance);
 
         // Test beta_m
         double golden_bm = GoldenFunctions::beta_m(v);
-        double lut_bm = HHLookupTables::beta_m_lut[i];
+        double lut_bm = hh_luts.beta_m_lut[i];
         assert(std::abs(golden_bm - lut_bm) < tolerance);
 
         // Test alpha_h
         double golden_ah = GoldenFunctions::alpha_h(v);
-        double lut_ah = HHLookupTables::alpha_h_lut[i];
+        double lut_ah = hh_luts.alpha_h_lut[i];
         assert(std::abs(golden_ah - lut_ah) < tolerance);
 
         // Test beta_h
         double golden_bh = GoldenFunctions::beta_h(v);
-        double lut_bh = HHLookupTables::beta_h_lut[i];
+        double lut_bh = hh_luts.beta_h_lut[i];
         assert(std::abs(golden_bh - lut_bh) < tolerance);
 
         // Test alpha_n
         double golden_an = GoldenFunctions::alpha_n(v);
-        double lut_an = HHLookupTables::alpha_n_lut[i];
+        double lut_an = hh_luts.alpha_n_lut[i];
         assert(std::abs(golden_an - lut_an) < tolerance);
 
         // Test beta_n
         double golden_bn = GoldenFunctions::beta_n(v);
-        double lut_bn = HHLookupTables::beta_n_lut[i];
+        double lut_bn = hh_luts.beta_n_lut[i];
         assert(std::abs(golden_bn - lut_bn) < tolerance);
     }
 

@@ -9,7 +9,8 @@
 void test_performance() {
     std::cout << "Running Performance Benchmark..." << std::endl;
 
-    HHLookupTables::initialize();
+    HHLookupTables hh_luts;
+    hh_luts.initialize();
 
     // Use a large number of steps to get a meaningful measurement
     const int num_steps = 10'000'000;
@@ -19,23 +20,19 @@ void test_performance() {
     const double I_stim = 1.0; // A constant stimulus for simplicity
 
     // --- Benchmark Golden Model ---
+    NeuronSegment_Golden golden_segment(seg_length, seg_diameter);
     auto start_golden = std::chrono::high_resolution_clock::now();
-    {
-        NeuronSegment_Golden golden_segment(seg_length, seg_diameter);
-        for (int i = 0; i < num_steps; ++i) {
-            golden_segment.update(I_stim, dt);
-        }
+    for (int i = 0; i < num_steps; ++i) {
+        golden_segment.update(I_stim, dt);
     }
     auto end_golden = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> duration_golden = end_golden - start_golden;
 
     // --- Benchmark Optimized (LUT) Model ---
+    NeuronSegment optimized_segment(seg_length, seg_diameter, hh_luts);
     auto start_optimized = std::chrono::high_resolution_clock::now();
-    {
-        NeuronSegment optimized_segment(seg_length, seg_diameter);
-        for (int i = 0; i < num_steps; ++i) {
-            optimized_segment.update(I_stim, dt);
-        }
+    for (int i = 0; i < num_steps; ++i) {
+        optimized_segment.update(I_stim, dt);
     }
     auto end_optimized = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> duration_optimized = end_optimized - start_optimized;

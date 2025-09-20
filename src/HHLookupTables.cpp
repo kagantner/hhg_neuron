@@ -2,14 +2,6 @@
 #include <cmath>
 #include <vector>
 
-// Define the static members
-std::vector<double> HHLookupTables::alpha_m_lut;
-std::vector<double> HHLookupTables::beta_m_lut;
-std::vector<double> HHLookupTables::alpha_h_lut;
-std::vector<double> HHLookupTables::beta_h_lut;
-std::vector<double> HHLookupTables::alpha_n_lut;
-std::vector<double> HHLookupTables::beta_n_lut;
-
 // --- Private kinetic functions, used only for initialization ---
 
 double HHLookupTables::alpha_m(double V) {
