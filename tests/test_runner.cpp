@@ -1,10 +1,13 @@
 #include <iostream>
 
+#include <iostream>
+
 // Forward declarations of our test functions
 void test_lut_accuracy();
 void test_simulation_accuracy();
 void test_performance();
 void test_lut_synapse();
+void test_cpu_vs_golden_consistency(); // New test
 
 int main() {
     std::cout << "Test runner started..." << std::endl;
@@ -16,6 +19,7 @@ int main() {
         test_simulation_accuracy();
         test_performance();
         test_lut_synapse();
+        test_cpu_vs_golden_consistency(); // New test
 
         std::cout << "------------------------" << std::endl;
         std::cout << "All tests passed." << std::endl;
